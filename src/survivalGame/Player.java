@@ -68,6 +68,10 @@ public class Player {
 		return avatarId;
 	}
 
+	public int getTotalDamage() {
+		return this.getDamage()+this.getInv().getDamage();
+	}
+	
 	public void initPlayer(String avtName, int dmg, int hlt, int money) {
 		setAvatarName(avtName);
 		setDamage(dmg);
