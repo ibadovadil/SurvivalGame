@@ -61,7 +61,7 @@ public class Game {
 			break;
 
 		case 5:
-			location = new SafeHouse(player);
+			location = new ToolStore(player);
 			break;
 
 		default:

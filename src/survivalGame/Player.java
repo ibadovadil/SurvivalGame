@@ -1,23 +1,24 @@
 package survivalGame;
 
-
 import java.util.Scanner;
 
 public class Player {
-	private int damage, healthy, money,rHealthy;
+	private int damage, healthy, money, rHealthy;
 	private String userName, avatarName;
 	private Inventory inv;
-	
+
 	Scanner scan = new Scanner(System.in);
+
 	public Player(String userName) {
 
 		this.userName = userName;
+		this.inv = new Inventory();
 	}
 
 	public void selectAvatar() {
 		switch (avatarMenu()) {
 		case 1: {
-			initPlayer("Samurai", 5, 21, 5);
+			initPlayer("Samurai", 5, 21, 15);
 			break;
 		}
 		case 2: {
@@ -28,12 +29,13 @@ public class Player {
 			initPlayer("Knight", 8, 24, 5);
 			break;
 		}
-		default:{
+		default: {
 			initPlayer("Samurai", 5, 21, 5);
 			break;
 		}
 		}
-		System.out.println("Your Avatar Specifications => "+"\r Avatar Name : " + getAvatarName() + "\r Damage : " + getDamage() + " \r Healthy : " +getHealthy() + "\r Money : " + getMoney());
+		System.out.println("Your Avatar Specifications => " + "\r Avatar Name : " + getAvatarName() + "\r Damage : "
+				+ getDamage() + " \r Healthy : " + getHealthy() + "\r Money : " + getMoney());
 	}
 
 	public int avatarMenu() {
@@ -57,24 +59,23 @@ public class Player {
 		System.out.println("<======== =========================== ========> ");
 		System.out.print("Your Select : ");
 		int avatarId = scan.nextInt();
-		while(avatarId <1|| avatarId>3) {
+		while (avatarId < 1 || avatarId > 3) {
 			System.out.println("Wrong Input :/ ");
 			System.out.print("Your Select : ");
 			avatarId = scan.nextInt();
 
 		}
 		return avatarId;
-		}
+	}
 
-	public void initPlayer(String avtName,int dmg,int hlt , int money)
-	{
+	public void initPlayer(String avtName, int dmg, int hlt, int money) {
 		setAvatarName(avtName);
 		setDamage(dmg);
 		setHealthy(hlt);
 		setMoney(money);
 		setrHealthy(hlt);
-	}	
-	
+	}
+
 	public int getDamage() {
 		return damage;
 	}
@@ -83,7 +84,6 @@ public class Player {
 		this.damage = damage;
 	}
 
-	
 	public int getHealthy() {
 		return healthy;
 	}
@@ -92,7 +92,6 @@ public class Player {
 		this.healthy = healthy;
 	}
 
-	
 	public int getMoney() {
 		return money;
 	}
@@ -101,7 +100,6 @@ public class Player {
 		this.money = money;
 	}
 
-	
 	public String getUserName() {
 		return userName;
 	}
@@ -110,7 +108,6 @@ public class Player {
 		this.userName = userName;
 	}
 
-	
 	public String getAvatarName() {
 		return avatarName;
 	}
@@ -119,7 +116,6 @@ public class Player {
 		this.avatarName = avatarName;
 	}
 
-	
 	public Inventory getInv() {
 		return inv;
 	}
@@ -128,7 +124,6 @@ public class Player {
 		this.inv = inv;
 	}
 
-	
 	public int getrHealthy() {
 		return rHealthy;
 	}
@@ -136,7 +131,5 @@ public class Player {
 	public void setrHealthy(int rHealthy) {
 		this.rHealthy = rHealthy;
 	}
-	
-	
 
 }
