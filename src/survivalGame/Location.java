@@ -1,6 +1,5 @@
 package survivalGame;
 
-import java.util.Scanner;
 
 public abstract class Location {
 
@@ -11,7 +10,6 @@ public abstract class Location {
 		this.player = player;
 	}
 
-	Scanner scan = new Scanner(System.in);
 
 	public abstract boolean getLocation();
 

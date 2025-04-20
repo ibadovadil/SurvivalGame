@@ -6,10 +6,9 @@ public class Game {
 	Player player;
 	Location location;
 
-	Scanner scan = new Scanner(System.in);
+    public static final Scanner scan = new Scanner(System.in);
 
 	public void login() {
-		Scanner scan = new Scanner(System.in);
 
 		System.out.println("---------- Welcome Survival Game! ----------");
 		System.out.print("Please Enter Your Name :  ");
@@ -37,12 +36,13 @@ public class Game {
 		System.out.print("Your Way To ");
 
 		int selectLoc = scan.nextInt();
-
+//	    scan.nextLine();
 		while (selectLoc < 0 || selectLoc > 5) {
 			System.out.println("Wrong Input !");
 
 			System.out.print("Select Your Way :");
 			selectLoc = scan.nextInt();
+//			scan.nextLine();
 		}
 
 		switch (selectLoc) {
@@ -50,29 +50,30 @@ public class Game {
 			location = new SafeHouse(player);
 			break;
 		case 2:
-			location = new SafeHouse(player);
+			location = new Cave(player);
 			break;
 		case 3:
-			location = new SafeHouse(player);
+			location = new Forest(player);
 			break;
-
 		case 4:
-			location = new SafeHouse(player);
+			location = new River(player);
 			break;
-
 		case 5:
 			location = new ToolStore(player);
 			break;
-
 		default:
 			location = new SafeHouse(player);
 			break;
 		}
-		if(!location.getLocation()) {
+		
+		boolean result = location.getLocation();
+		if(!result) {
 			System.out.println("Game Ended");
 			break;
 		}
-		location.getLocation();		
+		location.getLocation();
+		
+			
 	}
 	}
 }

@@ -7,8 +7,7 @@ public class Player {
 	private String userName, avatarName;
 	private Inventory inv;
 
-	Scanner scan = new Scanner(System.in);
-
+	
 	public Player(String userName) {
 
 		this.userName = userName;
@@ -58,11 +57,12 @@ public class Player {
 		System.out.println("3 - Knight  => Healthy:24 , Damage:8  , Money:5");
 		System.out.println("<======== =========================== ========> ");
 		System.out.print("Your Select : ");
-		int avatarId = scan.nextInt();
+		int avatarId = Game.scan.nextInt();
+		
 		while (avatarId < 1 || avatarId > 3) {
 			System.out.println("Wrong Input :/ ");
 			System.out.print("Your Select : ");
-			avatarId = scan.nextInt();
+			avatarId = Game.scan.nextInt();
 
 		}
 		return avatarId;

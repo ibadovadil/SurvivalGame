@@ -13,7 +13,7 @@ public class ToolStore extends NormalLocation {
 		System.out.println("3 => Exit Store");
 
 		System.out.println("Select Your Choice : ");
-		int selTool = scan.nextInt();
+		int selTool = Game.scan.nextInt();
 		int selectItemId;
 		switch (selTool) {
 		case 1:
@@ -39,7 +39,7 @@ public class ToolStore extends NormalLocation {
 		System.out.println("3 => Heavy Armor   <Price : 40$ , Damage : 5> ");
 		System.out.println("4 => Go To Back");
 		System.out.println("Select Armor ");
-		int selWeaponId = scan.nextInt();
+		int selWeaponId = Game.scan.nextInt();
 		return selWeaponId;
 	}
 
@@ -90,7 +90,7 @@ public class ToolStore extends NormalLocation {
 		System.out.println("3 => Rifle   <Price : 45$ , Damage : 7> ");
 		System.out.println("4 => Go To Back");
 		System.out.println("Select Weapon ");
-		int selWeaponId = scan.nextInt();
+		int selWeaponId = Game.scan.nextInt();
 		return selWeaponId;
 	}
 
@@ -101,7 +101,7 @@ public class ToolStore extends NormalLocation {
 		case 1:
 			damage = 2;
 			weaponName = "Pistol";
-			price = 5;
+			price = 25;
 			break;
 
 		case 2:
