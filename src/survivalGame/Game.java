@@ -10,7 +10,14 @@ public class Game {
 	public void login() {
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Welcome to the Adventure Game!");
+		System.out.println();
+		System.out.println("Rules:");
+		System.out.println("1. The Safe House fully restores your health.");
+		System.out.println("2. You can buy necessary weapons and armors from the Store.");
+		System.out.println("3. You will win the game after defeating all enemies, collecting all the awards (Water, Food, Firewood), and returning to the Safe House.");
+		System.out.println();
 		System.out.println("Before starting the game, please enter your name: ");
+		
 		String playerName = scan.nextLine();
 		player = new Player(playerName);
 		player.selectCha();
