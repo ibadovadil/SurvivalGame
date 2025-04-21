@@ -1,22 +1,21 @@
 package survivalGame;
 
 import java.util.Random;
-
 public class Obstacle {
 	private String name;
-	private int damage, killAward, healthy, maxCount;
+	private int damage, award, health, maxNumber;
 
-	public Obstacle(String name, int damage, int killAward, int healthy, int maxCount) {
+	public Obstacle(String name, int damage, int health, int award, int maxNumber) {
 		this.name = name;
 		this.damage = damage;
-		this.killAward = killAward;
-		this.healthy = healthy;
-		this.maxCount = maxCount;
+		this.award = award;
+		this.health = health;
+		this.maxNumber = maxNumber;
 	}
-
-	public int obstacleCount() {
+	
+	public int count() {
 		Random r = new Random();
-		return r.nextInt(this.maxCount) + 1;
+		return r.nextInt(this.maxNumber) + 1;
 	}
 
 	public String getName() {
@@ -35,28 +34,28 @@ public class Obstacle {
 		this.damage = damage;
 	}
 
-	public int getKillAward() {
-		return killAward;
+	public int getAward() {
+		return award;
 	}
 
-	public void setKillAward(int killAward) {
-		this.killAward = killAward;
+	public void setAward(int award) {
+		this.award = award;
 	}
 
-	public int getHealthy() {
-		return healthy;
+	public int getHealth() {
+		return health;
 	}
 
-	public void setHealthy(int healthy) {
-		this.healthy = healthy;
+	public void setHealth(int health) {
+		this.health = health;
 	}
 
-	public int getMaxCount() {
-		return maxCount;
+	public int getMaxNumber() {
+		return maxNumber;
 	}
 
-	public void setMaxCount(int maxCount) {
-		this.maxCount = maxCount;
+	public void setMaxNumber(int maxNumber) {
+		this.maxNumber = maxNumber;
 	}
 
 }

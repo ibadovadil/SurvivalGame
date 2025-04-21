@@ -4,41 +4,36 @@ import java.util.Scanner;
 
 public class Player {
 	private int damage, healthy, money, rHealthy;
-	private String userName, avatarName;
+	private String name, cName;
 	private Inventory inv;
+	Scanner scan = new Scanner(System.in);
 
-	
-	public Player(String userName) {
-
-		this.userName = userName;
+	public Player(String name) {
+		this.name = name;
 		this.inv = new Inventory();
 	}
 
-	public void selectAvatar() {
-		switch (avatarMenu()) {
-		case 1: {
+	public void selectCha() {
+		switch (chaMenu()) {
+		case 1:
+			initPlayer("Samurai", 5, 21, 15);
+			break;
+		case 2:
+			initPlayer("Archer", 7, 18, 20);
+			break;
+		case 3:
+			initPlayer("Knight", 8, 24, 5);
+			break;
+		default:
 			initPlayer("Samurai", 5, 21, 15);
 			break;
 		}
-		case 2: {
-			initPlayer("Archer", 7, 18, 20);
-			break;
-		}
-		case 3: {
-			initPlayer("Knight", 8, 24, 5);
-			break;
-		}
-		default: {
-			initPlayer("Samurai", 5, 21, 5);
-			break;
-		}
-		}
-		System.out.println("Your Avatar Specifications => " + "\r Avatar Name : " + getAvatarName() + "\r Damage : "
-				+ getDamage() + " \r Healthy : " + getHealthy() + "\r Money : " + getMoney());
+		System.out.println("Character Created! Name = " + getcName() + " ,Damage = " + getDamage() + " ,Health = "
+				+ getHealthy() + " ,Money = " + getMoney());
 	}
 
-	public int avatarMenu() {
-		System.out.println("<======== Select Your Avatar ========> ");
+	public int chaMenu() {
+		System.out.println("Please select a character: ");
 		System.out.println("                     ______");
 		System.out.println("                  .-\"      \"-.");
 		System.out.println("                 /            \\");
@@ -52,32 +47,30 @@ public class Player {
 		System.out.println("       )_/        \\          /");
 		System.out.println("      (@           `--------`");
 		System.out.println("");
-		System.out.println("1 - Samurai => Healthy:21 , Damage:5  , Money:5");
-		System.out.println("2 - Archer  => Healthy:18 , Damage:7  , Money:20");
-		System.out.println("3 - Knight  => Healthy:24 , Damage:8  , Money:5");
-		System.out.println("<======== =========================== ========> ");
-		System.out.print("Your Select : ");
-		int avatarId = Game.scan.nextInt();
-		
-		while (avatarId < 1 || avatarId > 3) {
-			System.out.println("Wrong Input :/ ");
-			System.out.print("Your Select : ");
-			avatarId = Game.scan.nextInt();
+		System.out.println("1- Samurai \t Damage: 5 \t Health: 21 \t Money: 15");
+		System.out.println("2- Archer \t Damage: 7 \t Health: 18 \t Money: 20");
+		System.out.println("3- Knight \t Damage: 8 \t Health: 24 \t Money: 5");
+		System.out.print("Your character selection: ");
+		int chaID = scan.nextInt();
 
+		while (chaID < 1 || chaID > 3) {
+			System.out.print("Please select a valid character: ");
+			chaID = scan.nextInt();
 		}
-		return avatarId;
+
+		return chaID;
 	}
 
 	public int getTotalDamage() {
-		return this.getDamage()+this.getInv().getDamage();
+		return this.getDamage() + this.getInv().getDamage();
 	}
-	
-	public void initPlayer(String avtName, int dmg, int hlt, int money) {
-		setAvatarName(avtName);
+
+	public void initPlayer(String cName, int dmg, int hlthy, int mny) {
+		setcName(cName);
 		setDamage(dmg);
-		setHealthy(hlt);
-		setMoney(money);
-		setrHealthy(hlt);
+		setHealthy(hlthy);
+		setMoney(mny);
+		setrHealthy(hlthy);
 	}
 
 	public int getDamage() {
@@ -104,20 +97,20 @@ public class Player {
 		this.money = money;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getAvatarName() {
-		return avatarName;
+	public String getcName() {
+		return cName;
 	}
 
-	public void setAvatarName(String avatarName) {
-		this.avatarName = avatarName;
+	public void setcName(String cName) {
+		this.cName = cName;
 	}
 
 	public Inventory getInv() {

@@ -1,19 +1,18 @@
- package survivalGame;
+package survivalGame;
 
 public class Inventory {
-	private boolean water, food, firewood;
-	private String weaponName, armorName;
-	private int damage, armor;
-
-	public Inventory() {
+	private boolean water,food,firewood;
+	private String wName,aName;
+	private int damage,armor;
+	
+	Inventory(){
 		this.water = false;
 		this.food = false;
 		this.firewood = false;
 		this.damage = 0;
 		this.armor = 0;
-		this.weaponName = null;
-		this.armorName = null;
-
+		this.wName = null;
+		this.aName = null;
 	}
 
 	public boolean isWater() {
@@ -40,20 +39,20 @@ public class Inventory {
 		this.firewood = firewood;
 	}
 
-	public String getWeaponName() {
-		return weaponName;
+	public String getwName() {
+		return wName;
 	}
 
-	public void setWeaponName(String weaponName) {
-		this.weaponName = weaponName;
+	public void setwName(String wName) {
+		this.wName = wName;
 	}
 
-	public String getArmorName() {
-		return armorName;
+	public String getaName() {
+		return aName;
 	}
 
-	public void setArmorName(String armorName) {
-		this.armorName = armorName;
+	public void setaName(String aName) {
+		this.aName = aName;
 	}
 
 	public int getDamage() {
@@ -71,5 +70,6 @@ public class Inventory {
 	public void setArmor(int armor) {
 		this.armor = armor;
 	}
+	
 	
 }

@@ -1,134 +1,214 @@
 package survivalGame;
 
 public abstract class BattleLocation extends Location {
+    protected Obstacle obstacle;
+    protected String award;
 
-	protected Obstacle obstacle; // Enemy
-	protected String award; // For winnning game collect this one all
+    BattleLocation(Player player, String name, Obstacle obstacle, String award) {
+        super(player);
+        this.obstacle = obstacle;
+        this.name = name;
+        this.award = award;
+    }
 
-	protected BattleLocation(Player player, String name, Obstacle obstacle, String award) {
-		super(player);
-		this.obstacle = obstacle;
-		this.name = name;
-		this.award = award;
-	}
+    public boolean getLocation() {
+        int obsCount = obstacle.count();
+        System.out.println("You are now in: " + this.getName());
+        System.out.println("Be careful! There are " + obsCount + " " + obstacle.getName() + "s living here!");
+        System.out.println();
+        
+        String obsName = obstacle.getName().toLowerCase();
 
-	public boolean getLocation() {
+        if (obsName.equals("zombie")) {
+        	  System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣶⡶⠶⠶⠾⠿⠿⠿⠟⠿⠿⠿⠿⣷⠶⣶⣦⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⡾⠟⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡠⠞⠁⠀⠀⠀⠉⠛⢿⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢾⠁⠀⠀⠀⠀⠀⠀⠀⠀⠉⠻⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⡾⠛⠁⡀⠀⠀⠀⠀⣴⡶⠶⠶⠶⢤⣄⠀⠀⠀⠀⠀⠙⠒⠲⠤⠤⢤⣤⣤⡤⠤⠖⠚⠛⠻⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⠏⣰⠎⣩⠇⠀⠀⠀⠀⠷⠒⠒⠒⠲⢶⣬⡙⢦⡀⠀⠀⠀⣠⠴⢦⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⡟⠁⢀⣉⡍⠁⠀⣠⠀⠀⠀⣀⣀⣀⣠⣤⡤⠬⣿⣷⣅⠀⠰⣞⠀⢀⡴⠁⣀⡴⠶⣀⣀⡀⠀⠀⠀⠀⠀⠀⠹⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⠟⠀⣴⢋⣨⠃⠀⡴⣃⣤⠾⠟⠛⠉⠀⠀⠀⠀⠀⠀⠈⢿⡍⠀⠀⠉⢉⣠⢜⣵⠞⠋⠉⠐⢾⣇⠀⠀⣤⠖⠲⡄⠙⣷⡀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡟⠀⣀⣛⣋⠁⠀⣸⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣷⠀⠀⠀⠈⣹⡟⠓⠢⢤⣄⠀⠀⠹⣧⡸⣅⣠⡴⡃⠀⢹⣧⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡷⠊⠁⢨⡇⠀⢰⡏⠀⠀⠀⠀⠀⢠⡶⣿⣿⣷⡀⠀⠀⠀⢠⣿⠀⠀⠀⢰⡿⠀⠀⠀⠀⠉⠻⣦⡀⠉⢱⠀⢠⠟⠙⣦⠀⢿⡄⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⠀⣴⠏⠀⠀⢸⡇⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⡇⠀⠀⠀⢸⡟⠀⠀⠀⣾⠁⠀⠀⠀⣤⣶⣤⡈⠻⣦⣸⠀⡏⠀⠀⣸⠀⢸⡇⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣤⠞⠁⠀⠀⠀⢸⣇⠀⠀⠀⠀⠀⢿⣿⣿⣿⠟⠀⠀⠀⢀⣿⠁⠀⠀⢸⣿⣄⠀⠀⠸⣿⣾⣿⡇⠀⠈⢿⡀⢧⣀⡴⠃⠀⢸⡇⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⢀⣀⣀⣀⠀⠀⠀⣿⡇⠐⡇⡀⠀⠀⢸⣿⣆⠀⠀⠀⠀⠈⢙⣛⣁⣠⣤⡴⢶⣿⠇⠀⠀⠀⠸⣿⣿⣦⡀⠀⠙⠛⠋⠀⠀⢀⣾⢷⠀⠀⠀⠀⠀⢸⡇⢀⣠⣤⣤⣤⡀\r\n"
+              		+ "⠀⣠⡶⠋⠉⠉⠉⠛⠶⣤⣹⣇⠘⡽⡁⠀⠀⠘⣷⡙⢷⣶⡶⠞⠛⠛⠛⠉⠉⠀⣠⣾⠏⠀⣀⠀⣠⠀⢹⣿⣿⣿⣶⣦⠀⠀⠀⢀⣾⠇⠈⠀⠀⠀⠀⠀⣼⡗⠋⠉⠀⠀⠹⣿\r\n"
+              		+ "⢰⠏⠀⠀⠀⠀⣀⣀⣀⠈⠙⣿⡄⠹⡄⠀⠀⠀⠘⣷⣄⠙⠛⠷⣶⣤⣤⣤⣶⠟⣿⠏⠀⣰⣿⠀⣿⣧⠀⢿⡿⣿⣿⣿⣤⣤⣶⡿⠁⠀⢀⡰⣄⠀⠀⢰⣿⠖⠚⢦⠀⠀⣼⡟\r\n"
+              		+ "⣾⠀⠀⠀⠀⡿⠋⢉⣽⣷⡄⠘⣿⡆⣧⠀⠀⠀⠀⠀⠉⠻⠶⠦⠤⠴⠆⣀⣴⠾⠃⠀⣴⣿⣿⠀⣿⣿⣇⠀⠙⢶⣯⣝⡽⣭⠞⠁⠀⣆⠢⡘⠆⠀⢠⣿⢋⣉⡀⠈⢀⣾⠟⠀\r\n"
+              		+ "⠸⣦⡤⢤⣄⠷⡀⢸⣀⡘⣿⠀⠈⢻⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠋⠉⠀⠀⠀⠰⠿⠿⠿⠀⠿⠿⠟⠀⠀⠙⠢⠴⠚⠁⠀⠀⠀⠈⠙⢀⠠⣴⡿⣧⣈⣼⠇⠀⣾⠃⠀⠀\r\n"
+              		+ "⠀⠈⠁⠈⠛⠟⣧⠈⢿⡾⠏⠀⠀⣸⠏⠻⣦⣧⣄⠀⠀⠀⠀⠀⢤⢤⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⢫⣾⣿⣅⡈⠉⢽⣿⣰⡟⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⢫⡇⠀⠀⠀⢀⣴⠟⠀⠀⠀⠉⢻⣆⠀⠀⠀⠀⠈⠳⡝⠑⠀⠀⠀⣠⣤⣶⣶⠶⢶⣶⣦⣤⣄⠀⠀⣀⣀⢤⣄⠀⠀⣰⡿⠟⠉⠉⠙⠻⠿⢾⣿⠟⠁⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠉⠓⠒⠚⠋⠉⠀⠀⠀⠀⠀⠈⣿⡇⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣫⡵⣧⠀⠀⠀⢰⣦⣉⣙⢿⣦⡀⠉⠻⠮⠁⢸⡿⠀⠀⠀⠀⠀⠀⢀⣸⣿⣀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⡏⠀⢿⣶⣶⣤⣏⠀⣿⠹⣷⣿⣷⡀⠀⠀⠀⣿⡇⠀⠀⠀⠀⠀⠀⢾⢴⣶⡾⡇⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⡇⠀⠀⠀⠀⢀⣾⣿⣿⣿⣷⣶⣾⣿⣿⣿⣿⣤⣿⣶⣿⣿⣿⣷⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠈⣷⣶⣶⠃⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣷⠀⠀⠀⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⡿⢿⣿⣿⣿⣿⣿⣿⡆⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠉⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⠀⢀⡄⠀⢸⣿⣿⣿⣿⠙⣿⣿⠿⣷⢸⡇⢸⠿⣿⣿⣿⣿⡿⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⣿⠂⠀⢸⣿⠋⠉⠹⠶⠿⠆⠀⠈⢉⣉⣙⣀⠀⠉⢙⣿⠃⠀⠀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⡇⣿⠀⠀⠀⠻⣷⣀⣠⣴⣶⠾⠿⠟⠛⠛⠉⠉⠙⠛⠛⠷⢦⣄⡀⠀⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⡇⠘⠀⣀⣴⡾⠟⠛⠉⠀⠀⠀⠀⠀⠀⠠⠞⠋⠉⠛⠳⣦⡀⠀⠙⠂⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣷⡀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣶⠀⠘⠃⠀⠀⣰⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠶⢶⣶⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠿⢀⣀⣤⣤⡶⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+              		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠛⠻⠷⠶⠶⠶⠶⠶⠶⠶⠿⠿⠛⠋⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+        } else if (obsName.equals("bear")) {
+        	System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣴⣶⣶⣾⣿⣿⣶⣶⣦⣤⣴⣶⣶⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣰⣾⣿⣿⣿⣿⣿⡿⣋⠟⠉⠡⠅⠉⠈⠉⠛⢿⣿⣿⣷⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣰⣿⣿⡿⠉⠉⠙⠎⣩⡾⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠙⠛⢿⣿⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣽⣿⡿⢔⣄⣀⣀⡠⣰⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣆⠀⠀⠹⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠂⠀⠀⠀⠀⣠⣶⣶⣷⣶⡶⣲⣿⣯⣭⣤⣍⣛⣻⣵⢣⣿⣿⣿⣧⣀⠀⠀⠀⢀⠀⠀⠀⢀⣾⣿⡞⣿⣤⣝⡻⣦⢤⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠟⡉⠉⠛⣱⣿⣿⣿⣿⣿⣿⣿⣿⠃⣿⣹⣟⣿⣿⣿⣷⡦⠀⠀⣠⣶⣾⣿⣿⣿⡏⢿⣿⣿⣿⣿⣞⠛⠻⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠐⠞⣄⠃⠀⡰⡿⣿⣿⣿⣿⣿⣿⠿⠁⠂⣇⣿⢯⡟⠉⠀⠀⠀⠀⠀⠀⠉⠙⢿⣿⣿⡇⢸⣿⡿⣿⣿⣿⡀⠀⣽⡷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠊⡓⢀⣾⣿⣿⣿⣿⣿⣿⠟⢀⡠⠐⣿⡟⠋⢀⣤⠀⠂⠒⠂⠆⠰⠀⡄⠀⢻⣿⡇⣯⣿⣞⣿⣿⣿⣕⠙⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⣾⣿⣿⣿⣿⣿⣿⣵⣿⣯⢲⡁⣿⠇⠀⢸⡎⠀⠀⠀⠀⠀⠀⠀⡿⠀⢸⣿⢁⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠠⠔⠂⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⢟⣿⣿⣿⣿⣿⣿⣿⣿⣿⡱⠌⡟⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠇⠀⢸⠇⣼⣿⣿⣿⣿⣿⣿⣿⡃⠀⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣱⠁⣿⣿⣿⣿⣿⣿⣿⡿⣽⣿⡅⢿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡟⣸⣿⣿⣿⡿⣿⣟⢿⣿⡇⠀⠀⠲⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⢣⠈⠧⢿⣟⢻⣿⠿⣏⡿⣽⣿⠴⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⢱⣿⣿⣿⣿⣿⣾⣿⡞⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿⠆⡀⢣⠚⡌⢯⣙⠳⣜⣻⣞⢧⣻⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣦⣿⣿⣿⣿⠿⣿⡿⡿⣾⢹⢷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡟⠆⠘⠀⠘⡰⢁⢮⡹⢜⡧⣟⣞⣿⠀⠀⠀⠘⣄⠀⠀⣷⠀⠀⠀⢸⣿⣿⣿⣿⢏⣵⡿⡽⣱⢫⣼⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢜⣽⢀⠀⠡⠀⠐⠡⢂⠕⣪⠱⣏⣾⣿⠀⠀⠀⢸⡖⠀⠀⣿⠀⠀⠀⣸⣿⡟⣼⢏⣾⡿⣹⠀⢇⡎⣿⠥⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣻⣧⢈⢒⡀⠁⠠⠁⢈⠰⢀⠳⣹⢻⢿⠀⠀⠀⢨⡇⠀⣸⡇⠀⠀⠀⣼⣿⡞⣡⢟⠡⣚⠃⢀⣾⡟⣍⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⢃⡾⠀⠢⠜⡄⠐⡠⠀⠄⠈⠂⢭⢸⡆⠀⠀⠀⠀⠧⠀⠉⠀⠀⠀⢠⣿⣿⡚⠥⠋⠤⠡⠀⣸⢿⣿⣼⣼⣗⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⢶⡄⣝⠣⢌⢣⠃⡜⠰⡀⠠⢁⠀⠀⠈⣧⠀⠀⢠⡀⠀⠀⠀⠀⠀⣠⢸⠉⠇⠁⢀⡨⣊⠜⣰⢏⣾⢹⣿⣷⣿⣷⡂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠰⣻⢃⠎⠱⡈⢆⠣⡘⠱⣀⠣⠀⠄⠀⠀⢻⠀⠀⠘⡇⢀⠀⠀⡀⢴⠃⡏⠀⢀⠒⠩⠶⠗⠻⡟⣸⣿⡎⣿⣿⣿⣿⣯⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢺⡇⣊⠀⠰⠁⡌⢒⠈⡅⠠⠀⠃⠀⠀⠀⠈⣇⠀⠀⠀⠀⠀⠉⠀⠁⡼⠁⠀⠠⢈⡠⠒⣈⣼⠃⣇⣿⡇⣾⣿⢿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⠏⡄⠐⣆⠀⠡⢘⠢⠌⠄⠁⡀⠀⠀⠀⠀⠀⠹⣄⡀⠀⠀⠀⠀⣀⡾⠁⠀⠀⠀⠁⠄⢐⡼⠃⢰⠿⢸⣱⣿⣿⣿⣿⣿⣿⣿⣿⠗⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⢁⠰⠱⠀⣿⠀⠀⠘⢆⠰⠠⠀⠡⠀⠀⠀⠄⠀⠀⠙⠳⠶⠶⠤⠖⠛⠁⠀⠀⠀⡀⠄⠀⠜⠁⢀⣾⠀⢈⣿⢻⣿⣟⣿⣿⣯⢻⣿⣆⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠐⣒⢏⢸⡆⠀⠄⠸⢆⠀⡁⠈⠄⢁⠂⠐⠀⠀⠀⠁⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡐⠁⠀⠀⡄⢢⡿⠟⣰⣿⢫⡿⣻⢻⣿⣿⣿⣧⣻⣯⠆⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⣠⠞⡁⠿⠸⡇⠀⠄⠀⠘⠀⠐⢀⠐⠀⠈⠄⠐⠀⠀⠀⠀⠐⠀⠀⠀⠠⠀⠀⠠⠂⠀⠁⠀⣠⠆⠁⢠⠥⣶⣾⢟⡵⢯⠿⣱⣿⣿⣿⣿⣯⢷⣿⣧⡀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠐⣡⠎⡵⢋⡖⡹⢐⠈⡀⠀⠀⠀⠀⢂⠀⠀⠀⠀⠐⠀⠀⠀⠀⠀⠀⠁⠀⠀⠀⠀⠀⣰⡿⠔⠁⢀⣴⠏⡣⠶⢛⣬⠞⢇⣾⣿⣿⣿⣿⡟⣿⢳⡻⣯⣛⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⢀⠞⡡⠎⠁⣶⢨⠕⡌⢂⡐⠀⠀⠀⠀⠀⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠀⠀⣠⠿⠈⣀⣤⡶⠟⢁⣼⣿⣿⣿⣿⣿⣿⣿⣿⣹⡽⣞⣟⠧⡀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⡤⠟⠐⢈⡆⣿⢸⡀⡇⠣⢄⠡⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠞⠉⠀⠈⠭⣅⠤⠶⣛⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢮⣻⣇⠀⠀⠀\r\n"
+        			+ "⠀⠀⢀⠀⠈⢀⠂⢉⣜⣙⡘⣇⠉⠕⡨⠐⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠀⠀⠀⢀⠠⠐⠀⣠⣤⣴⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣻⣯⣷⣽⡄⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⢀⠢⠱⢠⡿⣠⠘⢮⡐⢡⠃⠌⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠀⠀⠄⣈⣴⣾⣿⣿⣿⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⡿⡗⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⢄⠣⣿⢃⣿⢷⣀⡩⢆⠱⢀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠀⠀⠀⠀⠀⠌⣼⡿⠿⠛⠋⢙⣿⠟⣋⣴⣿⣿⣿⣿⣿⣿⣿⣿⣌⢿⣿⣷⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠈⠄⡱⢘⣿⣿⠺⡄⠳⡌⠒⡄⢂⠀⠀⠀⠀⠀⠀⠀⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠜⣈⠆⠁⡠⢂⢖⡩⢆⠞⣫⣿⢿⢿⣻⣿⡟⣯⢟⡻⣟⡀⠌⠻⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠌⡐⢀⠣⠜⡸⢇⢃⠳⣌⠡⡐⠠⠈⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⡁⠌⢠⠐⡬⢱⡉⠦⠉⡠⡔⣩⣶⠫⣞⣿⡟⡱⢊⢧⡑⠈⠆⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠐⡀⢂⠩⠔⡉⢆⠱⡈⢷⡈⠦⠐⠈⢀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⡐⠈⠂⢩⠔⠣⠘⣤⣶⢷⠿⠟⣡⢛⣩⠵⣪⠔⣭⢲⢃⠈⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠐⡀⢂⠠⢁⠂⠡⠘⢄⠳⢀⠃⠄⠀⠀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⡐⠀⠀⠈⠀⡀⡐⠌⢂⡐⢢⠓⣤⢓⣌⣮⡴⡿⢟⣶⡿⠋⡔⣣⢋⠦⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠂⠄⡈⢁⠂⠈⠐⠢⠉⠠⢁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡐⠂⠐⠀⠌⠠⢌⣡⢟⡼⢩⠎⠤⡑⢼⡻⡟⢠⠃⡔⢡⠊⡔⠈⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠠⠈⠄⡀⠀⠑⡀⠂⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠂⠀⠀⢈⡐⢈⡰⣚⠜⢊⡐⠣⢌⡑⠌⡡⠚⠄⢣⠘⡄⢃⠐⡀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⢀⠀⠀⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠄⠃⠀⠦⠑⠈⠀⠂⠌⡐⢂⠐⡈⠄⠡⠈⠄⠒⡀⠂⠄⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⡁⠂⠀⠀⠠⠁⠂⠀⠀⠂⠀⠈⢀⠡⠌⠐⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+        			+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+        }  else if (obsName.equals("vampire")) {
+            System.out.println("⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⡀⠀⠀⠀\r\n"
+            		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣤⣶⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⡄⠀⠀\r\n"
+            		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠴⢾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⣿⡄⠀\r\n"
+            		+ "⣤⡀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⣿⣿⡄⠀⠀⠀⢀⣴⣿⠟⠀⢻⣿⣷⠀\r\n"
+            		+ "⣿⣿⣷⣦⣄⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⡿⠟⠉⠉⠉⠉⠙⠻⢿⣿⠃⠀⠀⠀⠹⣷⠀⣀⣴⣿⠟⠃⠀⠀⠀⣿⣿⡆\r\n"
+            		+ "⣿⣿⡏⠙⠿⣿⣶⣬⡛⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠀⠀⠀⠀⠀⢹⣾⠿⠛⠁⠀⠀⠀⠀⠀⢸⣿⡇\r\n"
+            		+ "⢿⣿⡇⠀⠀⠀⠉⠛⠻⣿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣇⠀⠀⣦⠀⠀⠀⠀⠀⠘⣿⣷\r\n"
+            		+ "⢸⣿⣧⠀⠀⠀⠀⣤⠀⠈⢿⣿⣿⣿⣿⣆⠀⠀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⡆⢰⣿⣧⠀⠀⠀⠀⠀⣿⣿\r\n"
+            		+ "⠈⣿⣿⡄⠀⠀⠀⣿⣷⡀⠈⢿⣿⣿⣿⡟⢠⣾⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⣿⢀⣾⠁⢻⡆⠀⠀⠀⠀⣿⣿\r\n"
+            		+ "⠀⠸⣿⣧⠀⠀⠀⣿⠘⢿⣦⠘⣿⣿⣿⡄⠻⠛⣻⣿⣿⣿⣦⡀⠀⠀⠀⡀⣠⣿⣿⠻⣿⣾⠃⣸⡌⣷⠀⠀⠀⠀⣿⣿\r\n"
+            		+ "⠀⠀⢿⣿⡆⠀⠀⣿⠠⡄⠙⢿⣿⣿⣿⣧⠀⢰⣿⠁⣸⣿⣿⢿⣷⣿⠘⣿⡿⡏⣿⢀⣿⢷⣴⡟⠇⣿⠀⠀⠀⢸⣿⡟\r\n"
+            		+ "⠀⠀⠘⣿⣷⠀⠀⢿⡆⢿⢦⣀⠈⢻⣿⣿⡆⢻⣿⠀⢿⣸⣿⠀⣹⢻⣇⠙⢷⣿⣿⣿⠏⠀⢿⢿⢰⡟⠀⠀⠀⣾⣿⠇\r\n"
+            		+ "⠀⠀⠀⠸⣿⣧⠀⠘⣷⡈⢠⣿⠷⠈⣿⣿⣷⠈⢿⣦⣼⣿⣧⣴⡟⠋⠻⡄⠈⣿⡿⠿⠃⢀⣿⣰⡟⠁⠀⠀⣸⣿⡟⠀\r\n"
+            		+ "⠀⠀⠀⠀⠈⢿⣷⡄⠈⢻⣌⠳⠀⢀⣾⣧⠈⠀⠀⠀⠒⠴⠖⠋⠀⢷⠢⠄⠀⢸⡆⢀⣀⣿⡏⠉⠀⠀⠀⢠⣿⡟⠁⠀\r\n"
+            		+ "⠀⠀⠀⠀⠀⠀⠙⣿⣦⡀⠉⠻⠶⠿⠋⢿⡆⠀⠳⣤⡀⢶⣴⠀⠀⠘⠓⠦⣄⣸⠁⣸⢻⡿⠷⠀⠀⠀⢠⣿⡟⠀⠀⠀\r\n"
+            		+ "⠀⠀⠀⠀⠀⠀⠀⠈⠻⣷⣄⡀⠀⠀⠀⠈⣿⡄⠀⠀⢳⡈⠉⠙⡶⢤⣀⠀⠈⣋⡴⢻⠀⣧⡇⠀⠀⢠⣿⡟⠀⠀⠀⠀\r\n"
+            		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣦⡀⠀⠀⠘⣷⡀⠀⠀⢷⠀⠀⢱⣸⠋⣉⣉⣉⣹⡟⢰⣿⠁⠀⢠⣿⡟⠀⠀⠀⠀⠀\r\n"
+            		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠿⣷⣄⡀⠈⠛⠷⣦⣌⣧⠀⠀⢻⠀⠈⠉⠁⠀⠁⢸⡇⠀⣠⣿⠟⠀⠀⠀⠀⠀⠀\r\n"
+            		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢿⣶⣤⣀⠀⠉⠛⠷⣶⣤⣀⠀⠀⠀⡦⢀⡞⠀⣴⡟⠁⠀⠀⠀⠀⠀⠀⠀\r\n"
+            		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠿⢶⣤⣀⡀⠉⠛⠿⢶⠶⠛⢋⣡⡾⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀\r\n"
+            		+ "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠛⠛⠲⠶⠶⠶⠟⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+        }
+      
+        System.out.print("<F>ight or <R>un: ");
+        String selCase = scan.nextLine();
+        selCase = selCase.toUpperCase();
 
-		int obsCount = obstacle.obstacleCount();
+        if (selCase.equals("F")) {
+            if (combat(obsCount)) {
+                System.out.println("You have cleared all the enemies in " + this.getName() + "!");
+                
+                if (this.award.equals("Food") && !player.getInv().isFood()) {
+                    System.out.println("You won: " + this.award + "!");
+                    player.getInv().setFood(true);
+                } else if (this.award.equals("Water") && !player.getInv().isWater()) {
+                    System.out.println("You won: " + this.award + "!");
+                    player.getInv().setWater(true);
+                } else if (this.award.equals("Firewood") && !player.getInv().isFirewood()) {
+                    System.out.println("You won: " + this.award + "!");
+                    player.getInv().setFirewood(true);
+                }
 
-		System.out.println("You are in the " + this.getName());
-		System.out.println("Be careful, there are " + obsCount + " " + obstacle.getName() + " here.");
-		System.out.println("<B>attle or R<un>");
+                return true;
+            }
 
-		String selCase = Game.scan.nextLine();
-		selCase = selCase.toUpperCase();
+            if (player.getHealthy() <= 0) {
+                System.out.println("You died!");
+                return false;
+            }
+        }
 
-		if (selCase.equals("B")) {
+        return true;
+    }
 
-			if (combat(obsCount)) {
-				System.out.println(this.getName() + " Area " + "You Are Killed All Obstacles !!!");
-				if (this.award.equals("Food") && player.getInv().isFood() == false) {
-					System.out.println(this.award + " Collecting...");
-					player.getInv().setFood(true);
-				} else if (this.award.equals("Water") && player.getInv().isWater() == false) {
-					System.out.println(this.award + " Collecting...");
-					player.getInv().setWater(true);
-				} else if (this.award.equals("Firewood") && player.getInv().isFirewood() == false) {
-					System.out.println(this.award + " Collecting...");
-					player.getInv().setFirewood(true);
-				}
-				return true;
-			} else if (selCase.equals("R")) {
-			    System.out.println("You ran away from the battle.");
-			    return true; 
-			} else {
-			    System.out.println("Invalid input. You lost your chance.");
-			    return false; 
-			}
-		}
-		return true;
-	}
+    public boolean combat(int obsCount) {
+        for (int i = 0; i < obsCount; i++) {
+            int defObsHealth = obstacle.getHealth();
+            playerStats();
+            enemyStats();
 
-	public boolean combat(int obsCount) {
-		for (int i = 0; i < obsCount; i++) {
-			int defObsHealth = obstacle.getHealthy();
-			playerStats();
-			enemyStats();
-			while (player.getHealthy() > 0 && obstacle.getHealthy() > 0) {
-				System.out.println();
-				System.out.print("<A>ttack or R<un>");
+            while (player.getHealthy() > 0 && obstacle.getHealth() > 0) {
+                System.out.print("<H>it or <R>un: ");
+                String selCase = scan.nextLine();
+                selCase = selCase.toUpperCase();
 
-				String selCase = Game.scan.nextLine();
-				selCase = selCase.toUpperCase();
+                if (selCase.equals("H")) {
+                    System.out.println("You hit!");
+                    obstacle.setHealth(obstacle.getHealth() - player.getTotalDamage());
+                    afterHit();
 
-				if (selCase.equals("A")) {
-					System.out.println();
-					System.out.println("<====================>");
-					System.out.println("You hitted " + obstacle.getName());
-					obstacle.setHealthy(obstacle.getHealthy() - player.getTotalDamage());
+                    if (obstacle.getHealth() > 0) {
+                        System.out.println();
+                        System.out.println("The monster hit you!");
+                        player.setHealthy(player.getHealthy() - (obstacle.getDamage() - player.getInv().getArmor()));
+                        afterHit();
+                    }
+                } else {
+                    return false;
+                }
+            }
 
-					afterBattleStats();
+            if (obstacle.getHealth() < player.getHealthy()) {
+                System.out.println("You defeated the enemy!");
+                player.setMoney(player.getMoney() + obstacle.getAward());
+                System.out.println("Current Money: " + player.getMoney());
+                obstacle.setHealth(defObsHealth);
+            } else {
+                return false;
+            }
 
-					System.out.println("<====================>");
-					if (obstacle.getHealthy() > 0) {
-						System.out.println();
-						System.out.println(obstacle.getName() + " Hitted You");
-						player.setHealthy(player.getHealthy() - (obstacle.getDamage() - player.getInv().getArmor()));
-						afterBattleStats();
-					}
+            System.out.println("-------------------");
+        }
+        return true;
+    }
 
-				} else {
-					break;
-				}
-			}
+    public void playerStats() {
+        System.out.println("Player Stats\n--------------");
+        System.out.println("Health: " + player.getHealthy());
+        System.out.println("Damage: " + player.getTotalDamage());
+        System.out.println("Money: " + player.getMoney());
+        if (player.getInv().getDamage() > 0) {
+            System.out.println("Weapon: " + player.getInv().getwName());
+        }
+        if (player.getInv().getArmor() > 0) {
+            System.out.println("Armor: " + player.getInv().getaName());
+        }
+    }
 
-			if (obstacle.getHealthy() < player.getHealthy()) {
-				System.out.println("You Killed  " + obstacle.getName());
-				player.setMoney(player.getMoney() + obstacle.getKillAward());
-				System.out.println("Your Award : " + obstacle.getKillAward());
-				System.out.println("You Have " + player.getMoney() + "$");
-				obstacle.setHealthy(defObsHealth);
-			} else {
-				return false;
-			}
-			System.out.println("<====================>");
-		}
-		return true;
-	}
+    public void enemyStats() {
+        System.out.println("\n" + obstacle.getName() + " Stats\n--------------");
+        System.out.println("Health: " + obstacle.getHealth());
+        System.out.println("Damage: " + obstacle.getDamage());
+        System.out.println("Award: " + obstacle.getAward());
+    }
 
-	public void playerStats() {
-		System.out.println();
-		System.out.println("Player Statistics");
-		System.out.println("<====================>");
-
-		System.out.println("Healthy : " + player.getHealthy());
-		System.out.println("Damage : " + player.getTotalDamage());
-		System.out.println("Money : " + player.getMoney());
-
-		if (player.getInv().getDamage() > 0) {
-			System.out.println("Weapon : " + player.getInv().getWeaponName());
-		}
-		if (player.getInv().getArmor() > 0) {
-			System.out.println("Armor : " + player.getInv().getArmorName());
-		}
-
-	}
-
-	public void enemyStats() {
-		System.out.println();
-		System.out.println(obstacle.getName() + " Statistics ");
-		System.out.println("<====================>");
-
-		System.out.println("Healthy : " + obstacle.getHealthy());
-		System.out.println("Damage : " + obstacle.getDamage());
-		System.out.println("Award : " + obstacle.getKillAward());
-
-	}
-
-	public void afterBattleStats() {
-		System.out.println();
-		System.out.println("Your Healthy :" + player.getHealthy());
-		System.out.println(obstacle.getName() + " Healthy : " + obstacle.getHealthy());
-		System.out.println();
-	}
+    public void afterHit() {
+        System.out.println("Player Health: " + player.getHealthy());
+        System.out.println(obstacle.getName() + " Health: " + obstacle.getHealth());
+        System.out.println();
+    }
 }
